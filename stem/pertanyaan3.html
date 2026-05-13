@@ -80,8 +80,8 @@
     .char-count{text-align:right;font-size:11px;color:var(--text-faint);margin-top:5px}
 
     /* PROFIL CHECKBOX */
-    .profil-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
-    @media(max-width:540px){.profil-grid{grid-template-columns:1fr 1fr}}
+    .profil-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+    @media(max-width:600px){.profil-grid{grid-template-columns:1fr 1fr}}
     .profil-check{position:relative}
     .profil-check input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
     .profil-check label{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 10px;border-radius:var(--r);border:1px solid var(--border);background:var(--navy-light);cursor:pointer;transition:all .2s;text-align:center;font-size:12px;font-weight:600;color:var(--text-muted);line-height:1.3}
@@ -238,39 +238,47 @@
     </div>
   </div>
 
-  <!-- SECTION 2: PROFIL PELAJAR -->
+  <!-- SECTION 2: PROFIL LULUSAN -->
   <div class="form-section" id="sec2">
     <div class="sec-hdr">
-      <div class="sec-icon si-info">🌟</div>
+      <div class="sec-icon si-info">🎓</div>
       <div>
-        <h3>Dimensi Profil Pelajar Pancasila</h3>
-        <p>Pilih dimensi yang ingin dikembangkan melalui proyek STEM ini (boleh lebih dari satu).</p>
+        <h3>Dimensi Profil Lulusan</h3>
+        <p>Pilih dimensi Profil Lulusan yang ingin dikembangkan melalui proyek STEM ini (boleh lebih dari satu).</p>
       </div>
     </div>
     <div class="profil-grid">
       <div class="profil-check">
-        <input type="checkbox" id="p1" value="Beriman, Bertakwa kepada Tuhan YME, dan Berakhlak Mulia" />
-        <label for="p1"><span class="pico">🕌</span>Beriman, Bertakwa & Berakhlak Mulia</label>
+        <input type="checkbox" id="p1" value="Keimanan dan Ketakwaan kepada Tuhan Yang Maha Esa" />
+        <label for="p1"><span class="pico">🕌</span>Keimanan &amp; Ketakwaan</label>
       </div>
       <div class="profil-check">
-        <input type="checkbox" id="p2" value="Berkebhinekaan Global" />
-        <label for="p2"><span class="pico">🌍</span>Berkebhinekaan Global</label>
+        <input type="checkbox" id="p2" value="Kewargaan" />
+        <label for="p2"><span class="pico">🏡</span>Kewargaan</label>
       </div>
       <div class="profil-check">
-        <input type="checkbox" id="p3" value="Bergotong Royong" />
-        <label for="p3"><span class="pico">🤝</span>Bergotong Royong</label>
+        <input type="checkbox" id="p3" value="Penalaran Kritis" />
+        <label for="p3"><span class="pico">🧠</span>Penalaran Kritis</label>
       </div>
       <div class="profil-check">
-        <input type="checkbox" id="p4" value="Mandiri" />
-        <label for="p4"><span class="pico">💪</span>Mandiri</label>
+        <input type="checkbox" id="p4" value="Kreativitas" />
+        <label for="p4"><span class="pico">🎨</span>Kreativitas</label>
       </div>
       <div class="profil-check">
-        <input type="checkbox" id="p5" value="Bernalar Kritis" />
-        <label for="p5"><span class="pico">🧠</span>Bernalar Kritis</label>
+        <input type="checkbox" id="p5" value="Kolaborasi" />
+        <label for="p5"><span class="pico">🤝</span>Kolaborasi</label>
       </div>
       <div class="profil-check">
-        <input type="checkbox" id="p6" value="Kreatif" />
-        <label for="p6"><span class="pico">🎨</span>Kreatif</label>
+        <input type="checkbox" id="p6" value="Kemandirian" />
+        <label for="p6"><span class="pico">💪</span>Kemandirian</label>
+      </div>
+      <div class="profil-check">
+        <input type="checkbox" id="p7" value="Kesehatan" />
+        <label for="p7"><span class="pico">🌿</span>Kesehatan</label>
+      </div>
+      <div class="profil-check">
+        <input type="checkbox" id="p8" value="Komunikasi" />
+        <label for="p8"><span class="pico">💬</span>Komunikasi</label>
       </div>
     </div>
   </div>
@@ -409,7 +417,7 @@
 <script>
 // ─── KONFIGURASI ─────────────────────────────────────────────────────────────
 // Setelah deploy Google Apps Script, tempel URL-nya di sini:
-const SCRIPT_URL = '';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwpJwp1vLGrq1yHG8nPhXPBCgd-aIfQ_yI2W_jdrl6f1Dctbh_zeMEMJpnklzG6HAzeKw/exec';
 // Contoh: const SCRIPT_URL = 'https://script.google.com/macros/s/AKfyc.../exec';
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -418,7 +426,7 @@ function updateCount(ta, countId) {
 }
 
 function getProfilValues() {
-  return ['p1','p2','p3','p4','p5','p6']
+  return ['p1','p2','p3','p4','p5','p6','p7','p8']
     .filter(id => document.getElementById(id).checked)
     .map(id => document.getElementById(id).value)
     .join(', ');
@@ -438,7 +446,7 @@ function validate() {
   if (!mapel) { alert('Isi mata pelajaran yang diintegrasikan.'); document.getElementById('mapel').focus(); return false; }
 
   const profil = getProfilValues();
-  if (!profil) { alert('Pilih minimal satu dimensi Profil Pelajar Pancasila.'); return false; }
+  if (!profil) { alert('Pilih minimal satu Dimensi Profil Lulusan.'); return false; }
 
   const stemFields = ['intS','intT','intE','intM'];
   for (const id of stemFields) {
