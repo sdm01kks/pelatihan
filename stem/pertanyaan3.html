@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pertanyaan 3 — Rancangan STEM | Pelatihan STEM SDM01</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:#0B1D2E; --navy-mid:#132840; --navy-light:#1D3A52;
+      --indigo:#818CF8; --indigo-dim:#818CF820; --indigo-mid:#6366F1;
+      --amber:#F59E0B; --teal:#0EA5C9; --green:#10B981;
+      --blue:#38BDF8; --pink:#F472B6; --emerald:#34D399; --violet:#A78BFA;
+      --white:#F8FAFC; --white-dim:#F8FAFC18;
+      --text-main:#E2EAF0; --text-muted:#8BA5BB; --text-faint:#4A6478;
+      --border:#1D3A52; --input-bg:#0F2437;
+      --r:12px; --rl:20px;
+      --ff-serif:'DM Serif Display',Georgia,serif;
+      --ff-sans:'Plus Jakarta Sans',system-ui,sans-serif;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--ff-sans);background:var(--navy);color:var(--text-main);line-height:1.65;min-height:100vh}
+    a{color:var(--teal);text-decoration:none;transition:color .2s}
+    a:hover{color:var(--indigo)}
+    #prog{position:fixed;top:0;left:0;height:3px;z-index:999;width:0%;background:linear-gradient(90deg,var(--indigo-mid),var(--violet));transition:width .1s}
+
+    nav{position:sticky;top:0;z-index:100;background:rgba(11,29,46,.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+    .nav-in{max-width:800px;margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .nav-logo{display:flex;align-items:center;gap:10px}
+    .nav-mark{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--indigo-mid),var(--violet));display:flex;align-items:center;justify-content:center;font-family:var(--ff-serif);font-size:14px;color:#fff;font-weight:700}
+    .nav-brand{font-size:14px;font-weight:700;color:var(--white);line-height:1.2}
+    .nav-brand span{display:block;font-size:11px;font-weight:400;color:var(--text-muted)}
+    .nav-back{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--text-muted);padding:5px 12px;border-radius:7px;border:1px solid var(--border);transition:all .2s}
+    .nav-back:hover{color:var(--white);border-color:var(--indigo);background:var(--navy-light)}
+
+    .container{max-width:800px;margin:0 auto;padding:48px 24px 80px}
+
+    .form-header{text-align:center;margin-bottom:48px}
+    .phase-badge{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--violet);background:var(--indigo-dim);padding:6px 16px;border-radius:20px;border:1px solid var(--indigo);margin-bottom:20px}
+    .phase-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--indigo);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
+    .form-header h1{font-family:var(--ff-serif);font-size:clamp(28px,5vw,44px);line-height:1.1;color:var(--white);margin-bottom:12px}
+    .form-header h1 em{font-style:italic;color:var(--violet)}
+    .form-header p{font-size:15px;color:var(--text-muted);max-width:560px;margin:0 auto;line-height:1.7}
+
+    .form-progress{background:var(--navy-light);border-radius:var(--rl);padding:16px 20px;margin-bottom:40px;display:flex;align-items:center;gap:16px}
+    .prog-info{flex:1;font-size:12px;color:var(--text-muted)}
+    .prog-info strong{color:var(--text-main)}
+    .prog-bar-wrap{width:120px;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+    .prog-bar-fill{height:100%;background:linear-gradient(90deg,var(--indigo-mid),var(--violet));border-radius:3px;transition:width .3s}
+
+    /* SECTION HEADERS */
+    .sec-hdr{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+    .sec-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+    .si-info{background:#818CF818;border:1px solid #818CF830}
+    .si-stem{background:linear-gradient(135deg,#38BDF818,#10B98118);border:1px solid #38BDF825}
+    .si-alur{background:#F59E0B18;border:1px solid #F59E0B30}
+    .sec-hdr h3{font-family:var(--ff-serif);font-size:18px;color:var(--white)}
+    .sec-hdr p{font-size:12px;color:var(--text-muted);margin-top:2px}
+
+    /* FORM BLOCKS */
+    .form-section{background:var(--navy-mid);border:1px solid var(--border);border-radius:var(--rl);padding:28px;margin-bottom:24px;transition:border-color .2s}
+    .form-section:focus-within{border-color:var(--indigo)}
+
+    .field-group{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+    @media(max-width:600px){.field-group{grid-template-columns:1fr}}
+    .field{margin-bottom:20px}
+    .field:last-child{margin-bottom:0}
+    .field label{display:block;font-size:13px;font-weight:700;color:var(--white);margin-bottom:6px}
+    .field .hint{font-size:11px;color:var(--text-faint);margin-bottom:10px;line-height:1.5}
+    input[type=text], select, textarea{width:100%;background:var(--input-bg);color:var(--text-main);border:1px solid var(--border);border-radius:var(--r);padding:12px 16px;font-family:var(--ff-sans);font-size:14px;outline:none;transition:border-color .2s}
+    input[type=text]:focus, select:focus, textarea:focus{border-color:var(--indigo);box-shadow:0 0 0 3px var(--indigo-dim)}
+    select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238BA5BB' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+    select option{background:#1D3A52}
+    textarea{resize:vertical;min-height:90px;line-height:1.6}
+    textarea::placeholder, input::placeholder{color:var(--text-faint)}
+    .char-count{text-align:right;font-size:11px;color:var(--text-faint);margin-top:5px}
+
+    /* PROFIL CHECKBOX */
+    .profil-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+    @media(max-width:540px){.profil-grid{grid-template-columns:1fr 1fr}}
+    .profil-check{position:relative}
+    .profil-check input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+    .profil-check label{display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 10px;border-radius:var(--r);border:1px solid var(--border);background:var(--navy-light);cursor:pointer;transition:all .2s;text-align:center;font-size:12px;font-weight:600;color:var(--text-muted);line-height:1.3}
+    .profil-check label .pico{font-size:20px}
+    .profil-check input:checked + label{border-color:var(--indigo);background:var(--indigo-dim);color:var(--violet)}
+    .profil-check label:hover{border-color:var(--indigo);color:var(--text-main)}
+
+    /* STEM INTEGRATION GRID */
+    .stem-int-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media(max-width:600px){.stem-int-grid{grid-template-columns:1fr}}
+    .stem-int-card{background:var(--navy-light);border-radius:var(--r);padding:18px}
+    .stem-int-hdr{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+    .stem-letter{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--ff-serif);font-size:16px;font-weight:700;flex-shrink:0}
+    .sl-s{background:#38BDF818;color:var(--blue);border:1px solid #38BDF830}
+    .sl-t{background:#34D39918;color:var(--emerald);border:1px solid #34D39930}
+    .sl-e{background:#F59E0B18;color:var(--amber);border:1px solid #F59E0B30}
+    .sl-m{background:#F472B618;color:var(--pink);border:1px solid #F472B630}
+    .stem-int-hdr div strong{display:block;font-size:14px;font-weight:700;color:var(--white)}
+    .stem-int-hdr div span{font-size:11px;color:var(--text-faint)}
+
+    /* ALUR PERTEMUAN */
+    .alur-grid{display:flex;flex-direction:column;gap:12px}
+    .alur-item{display:flex;align-items:flex-start;gap:12px}
+    .alur-badge{width:28px;height:28px;border-radius:7px;background:var(--amber-dim, #F59E0B18);border:1px solid #F59E0B30;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--amber);flex-shrink:0;margin-top:2px;font-family:var(--ff-serif)}
+    .alur-item input[type=text]{flex:1}
+    .alur-optional{font-size:10px;font-weight:600;color:var(--text-faint);padding:2px 7px;border-radius:5px;background:var(--navy-light);margin-top:5px;white-space:nowrap;flex-shrink:0;align-self:flex-start;margin-top:10px}
+
+    /* SUBMIT */
+    .submit-wrap{margin-top:40px;text-align:center}
+    .submit-btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--ff-sans);font-size:15px;font-weight:700;padding:16px 36px;border-radius:12px;cursor:pointer;border:none;background:var(--indigo-mid);color:#fff;transition:all .2s;box-shadow:0 4px 20px rgba(99,102,241,.3)}
+    .submit-btn:hover:not(:disabled){background:var(--violet);transform:translateY(-2px);box-shadow:0 8px 28px rgba(99,102,241,.4)}
+    .submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+    .submit-hint{font-size:12px;color:var(--text-faint);margin-top:12px}
+
+    .state-box{display:none;border-radius:var(--rl);padding:36px 32px;text-align:center;margin-top:32px}
+    .state-box.show{display:block}
+    .success-box{background:linear-gradient(135deg,#818CF812,#A5B4FC08);border:1px solid #818CF835}
+    .error-box{background:linear-gradient(135deg,#EF444412,#F9731608);border:1px solid #EF444430}
+    .state-icon{font-size:40px;margin-bottom:16px}
+    .state-box h3{font-family:var(--ff-serif);font-size:22px;color:var(--white);margin-bottom:10px}
+    .state-box p{font-size:14px;color:var(--text-muted);line-height:1.65}
+    .state-box .back-link{display:inline-flex;align-items:center;gap:7px;margin-top:20px;font-size:13px;font-weight:600;color:var(--violet);padding:10px 20px;border-radius:9px;border:1px solid var(--indigo);background:var(--indigo-dim);transition:all .2s}
+
+    /* GURU SELECT */
+    .guru-select-wrap{background:var(--navy-mid);border:2px solid var(--indigo);border-radius:var(--rl);padding:28px 28px;margin-bottom:32px}
+    .guru-select-wrap label{display:block;font-size:14px;font-weight:700;color:var(--white);margin-bottom:6px}
+    .guru-select-wrap .hint{font-size:12px;color:var(--text-muted);margin-bottom:14px}
+    .guru-select-wrap select:focus{border-color:var(--indigo);box-shadow:0 0 0 3px var(--indigo-dim)}
+  </style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<nav>
+  <div class="nav-in">
+    <div class="nav-logo">
+      <div class="nav-mark">03</div>
+      <div class="nav-brand">Pertanyaan 3 <span>Rancangan STEM</span></div>
+    </div>
+    <a href="index.html" class="nav-back">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Hub STEM
+    </a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="form-header">
+    <div class="phase-badge">Tahap 3 · Perancangan</div>
+    <h1>Rancangan<br><em>Pembelajaran STEM</em></h1>
+    <p>Saatnya menuangkan ide ke dalam rancangan awal. Ini bukan rancangan final — cukup garis besar yang akan dikembangkan bersama. Isi sesuai dengan apa yang sudah terbentuk di pikiranmu.</p>
+  </div>
+
+  <div class="form-progress">
+    <div class="prog-info">
+      <strong>Pertanyaan 3 dari 3</strong> &nbsp;·&nbsp; Rancangan STEM
+    </div>
+    <div class="prog-bar-wrap">
+      <div class="prog-bar-fill" style="width:100%"></div>
+    </div>
+  </div>
+
+  <!-- TEACHER SELECT -->
+  <div class="guru-select-wrap">
+    <label for="namaGuru">👤 Pilih Namamu</label>
+    <p class="hint">Pastikan memilih nama yang tepat agar rancangan STEM-mu tersimpan dengan benar.</p>
+    <select id="namaGuru" required>
+      <option value="" disabled selected>— Pilih nama guru —</option>
+      <option value="Pak Arif">Pak Arif</option>
+      <option value="Pak Raka">Pak Raka</option>
+      <option value="Bu April">Bu April</option>
+      <option value="Bu Yulia">Bu Yulia</option>
+      <option value="Bu Syam">Bu Syam</option>
+      <option value="Bu Anas">Bu Anas</option>
+      <option value="Bu Ummu">Bu Ummu</option>
+      <option value="Bu Azizah">Bu Azizah</option>
+      <option value="Bu Elya">Bu Elya</option>
+      <option value="Bu Marnie SK">Bu Marnie SK</option>
+      <option value="Pak Rizki">Pak Rizki</option>
+      <option value="Bu Fitri">Bu Fitri</option>
+      <option value="Pak Zakir">Pak Zakir</option>
+      <option value="Bu Silvi">Bu Silvi</option>
+      <option value="Pak Sandi">Pak Sandi</option>
+      <option value="Bu Elsa">Bu Elsa</option>
+      <option value="Bu Ratih">Bu Ratih</option>
+      <option value="Bu Santi">Bu Santi</option>
+      <option value="Bu Evi">Bu Evi</option>
+      <option value="Bu Mia">Bu Mia</option>
+      <option value="Pak Hendra">Pak Hendra</option>
+      <option value="Bu Suci">Bu Suci</option>
+      <option value="Bu Rahmah">Bu Rahmah</option>
+      <option value="Pak Indra">Pak Indra</option>
+      <option value="Pak Abduh">Pak Abduh</option>
+    </select>
+  </div>
+
+  <!-- SECTION 1: INFO DASAR -->
+  <div class="form-section" id="sec1">
+    <div class="sec-hdr">
+      <div class="sec-icon si-info">📌</div>
+      <div>
+        <h3>Informasi Dasar Proyek</h3>
+        <p>Identitas utama rancangan STEM yang ingin kamu buat.</p>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <div class="field">
+        <label for="kelas">Kelas <span style="color:#EF4444">*</span></label>
+        <div class="hint">Kelas yang akan menjalankan proyek STEM ini.</div>
+        <select id="kelas" required>
+          <option value="" disabled selected>— Pilih kelas —</option>
+          <option value="Kelas 1 (Fase A)">Kelas 1 (Fase A)</option>
+          <option value="Kelas 2 (Fase A)">Kelas 2 (Fase A)</option>
+          <option value="Kelas 3 (Fase B)">Kelas 3 (Fase B)</option>
+          <option value="Kelas 4 (Fase B)">Kelas 4 (Fase B)</option>
+          <option value="Kelas 5 (Fase C)">Kelas 5 (Fase C)</option>
+          <option value="Kelas 6 (Fase C)">Kelas 6 (Fase C)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="mapel">Mata Pelajaran yang Diintegrasikan <span style="color:#EF4444">*</span></label>
+        <div class="hint">Sebutkan mapel-mapel yang terlibat, pisahkan dengan koma.</div>
+        <input type="text" id="mapel" placeholder="Contoh: IPAS, Matematika, PKn" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="tema">Tema / Judul Proyek STEM <span style="color:#EF4444">*</span></label>
+      <div class="hint">Bisa berupa judul proyek atau permasalahan yang ingin dipecahkan murid.</div>
+      <input type="text" id="tema" placeholder="Contoh: Merancang Sistem Pengelolaan Sampah di Sekolah" />
+    </div>
+  </div>
+
+  <!-- SECTION 2: PROFIL PELAJAR -->
+  <div class="form-section" id="sec2">
+    <div class="sec-hdr">
+      <div class="sec-icon si-info">🌟</div>
+      <div>
+        <h3>Dimensi Profil Pelajar Pancasila</h3>
+        <p>Pilih dimensi yang ingin dikembangkan melalui proyek STEM ini (boleh lebih dari satu).</p>
+      </div>
+    </div>
+    <div class="profil-grid">
+      <div class="profil-check">
+        <input type="checkbox" id="p1" value="Beriman, Bertakwa kepada Tuhan YME, dan Berakhlak Mulia" />
+        <label for="p1"><span class="pico">🕌</span>Beriman, Bertakwa & Berakhlak Mulia</label>
+      </div>
+      <div class="profil-check">
+        <input type="checkbox" id="p2" value="Berkebhinekaan Global" />
+        <label for="p2"><span class="pico">🌍</span>Berkebhinekaan Global</label>
+      </div>
+      <div class="profil-check">
+        <input type="checkbox" id="p3" value="Bergotong Royong" />
+        <label for="p3"><span class="pico">🤝</span>Bergotong Royong</label>
+      </div>
+      <div class="profil-check">
+        <input type="checkbox" id="p4" value="Mandiri" />
+        <label for="p4"><span class="pico">💪</span>Mandiri</label>
+      </div>
+      <div class="profil-check">
+        <input type="checkbox" id="p5" value="Bernalar Kritis" />
+        <label for="p5"><span class="pico">🧠</span>Bernalar Kritis</label>
+      </div>
+      <div class="profil-check">
+        <input type="checkbox" id="p6" value="Kreatif" />
+        <label for="p6"><span class="pico">🎨</span>Kreatif</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: INTEGRASI STEM -->
+  <div class="form-section" id="sec3">
+    <div class="sec-hdr">
+      <div class="sec-icon si-stem">⚗️</div>
+      <div>
+        <h3>Integrasi Setiap Unsur STEM</h3>
+        <p>Ceritakan bagaimana setiap komponen S-T-E-M diintegrasikan dalam proyekmu.</p>
+      </div>
+    </div>
+    <div class="stem-int-grid">
+
+      <div class="stem-int-card">
+        <div class="stem-int-hdr">
+          <div class="stem-letter sl-s">S</div>
+          <div><strong>Sains</strong><span>Science</span></div>
+        </div>
+        <textarea id="intS" placeholder="Bagaimana konsep atau praktik sains digunakan? Misalnya: murid mengamati, mengukur, membuat hipotesis, melakukan percobaan..." rows="4" oninput="updateCount(this,'cS')"></textarea>
+        <div class="char-count" id="cS">0 karakter</div>
+      </div>
+
+      <div class="stem-int-card">
+        <div class="stem-int-hdr">
+          <div class="stem-letter sl-t">T</div>
+          <div><strong>Teknologi</strong><span>Technology</span></div>
+        </div>
+        <textarea id="intT" placeholder="Teknologi apa yang digunakan atau dipelajari murid? Bisa berupa alat sederhana, digital, atau proses teknologi..." rows="4" oninput="updateCount(this,'cT')"></textarea>
+        <div class="char-count" id="cT">0 karakter</div>
+      </div>
+
+      <div class="stem-int-card">
+        <div class="stem-int-hdr">
+          <div class="stem-letter sl-e">E</div>
+          <div><strong>Enjinering</strong><span>Engineering</span></div>
+        </div>
+        <textarea id="intE" placeholder="Bagaimana proses desain atau rekayasa diintegrasikan? Misalnya: murid merancang, membangun, menguji, dan memperbaiki..." rows="4" oninput="updateCount(this,'cE')"></textarea>
+        <div class="char-count" id="cE">0 karakter</div>
+      </div>
+
+      <div class="stem-int-card">
+        <div class="stem-int-hdr">
+          <div class="stem-letter sl-m">M</div>
+          <div><strong>Matematika</strong><span>Mathematics</span></div>
+        </div>
+        <textarea id="intM" placeholder="Bagaimana matematika digunakan secara bermakna? Misalnya: mengukur, menghitung, membuat data, membandingkan hasil..." rows="4" oninput="updateCount(this,'cM')"></textarea>
+        <div class="char-count" id="cM">0 karakter</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 4: ALUR PEMBELAJARAN -->
+  <div class="form-section" id="sec4">
+    <div class="sec-hdr">
+      <div class="sec-icon si-alur">📅</div>
+      <div>
+        <h3>Alur Pembelajaran</h3>
+        <p>Isi judul, ide, atau topik untuk setiap pertemuan dalam rangka STEM ini. Minimal 3 pertemuan. Pertemuan 5–8 opsional.</p>
+      </div>
+    </div>
+
+    <div class="alur-grid">
+      <div class="alur-item">
+        <div class="alur-badge">1</div>
+        <input type="text" id="pt1" placeholder="Topik / judul Pertemuan 1 (wajib)" />
+      </div>
+      <div class="alur-item">
+        <div class="alur-badge">2</div>
+        <input type="text" id="pt2" placeholder="Topik / judul Pertemuan 2 (wajib)" />
+      </div>
+      <div class="alur-item">
+        <div class="alur-badge">3</div>
+        <input type="text" id="pt3" placeholder="Topik / judul Pertemuan 3 (wajib)" />
+      </div>
+      <div class="alur-item">
+        <div class="alur-badge">4</div>
+        <input type="text" id="pt4" placeholder="Topik / judul Pertemuan 4 (opsional)" />
+        <span class="alur-optional">opsional</span>
+      </div>
+      <div class="alur-item">
+        <div class="alur-badge">5</div>
+        <input type="text" id="pt5" placeholder="Topik / judul Pertemuan 5 (opsional)" />
+        <span class="alur-optional">opsional</span>
+      </div>
+      <div class="alur-item">
+        <div class="alur-badge">6</div>
+        <input type="text" id="pt6" placeholder="Topik / judul Pertemuan 6 (opsional)" />
+        <span class="alur-optional">opsional</span>
+      </div>
+      <div class="alur-item">
+        <div class="alur-badge">7</div>
+        <input type="text" id="pt7" placeholder="Topik / judul Pertemuan 7 (opsional)" />
+        <span class="alur-optional">opsional</span>
+      </div>
+      <div class="alur-item">
+        <div class="alur-badge">8</div>
+        <input type="text" id="pt8" placeholder="Topik / judul Pertemuan 8 (opsional)" />
+        <span class="alur-optional">opsional</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-wrap" id="submitWrap">
+    <button class="submit-btn" id="submitBtn" onclick="submitForm()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Simpan Rancangan STEM
+    </button>
+    <div class="submit-hint">Rancanganmu akan disimpan di Google Sheet pelatihan. Pastikan semua kolom wajib (*) sudah diisi.</div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="state-box success-box" id="successBox">
+    <div class="state-icon">🎉</div>
+    <h3>Rancangan STEM Tersimpan!</h3>
+    <p>Luar biasa! Rancangan awal pembelajaran STEM-mu sudah berhasil disimpan. Ini adalah langkah nyata yang berarti.<br><br>Fasilitator akan memberikan umpan balik dan membantumu mengembangkannya lebih lanjut. Selamat! 🌟</p>
+    <a href="index.html" class="back-link">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Kembali ke Hub STEM
+    </a>
+  </div>
+
+  <!-- ERROR -->
+  <div class="state-box error-box" id="errorBox">
+    <div class="state-icon">⚠️</div>
+    <h3>Terjadi Masalah</h3>
+    <p id="errorMsg">Rancangan gagal dikirim. Pastikan koneksi internet aktif dan coba lagi.</p>
+    <a href="#" class="back-link" onclick="resetError()" style="color:var(--amber);border-color:var(--amber);background:#F59E0B18">Coba Lagi</a>
+  </div>
+
+</div>
+
+<script>
+// ─── KONFIGURASI ─────────────────────────────────────────────────────────────
+// Setelah deploy Google Apps Script, tempel URL-nya di sini:
+const SCRIPT_URL = '';
+// Contoh: const SCRIPT_URL = 'https://script.google.com/macros/s/AKfyc.../exec';
+// ─────────────────────────────────────────────────────────────────────────────
+
+function updateCount(ta, countId) {
+  document.getElementById(countId).textContent = ta.value.length + ' karakter';
+}
+
+function getProfilValues() {
+  return ['p1','p2','p3','p4','p5','p6']
+    .filter(id => document.getElementById(id).checked)
+    .map(id => document.getElementById(id).value)
+    .join(', ');
+}
+
+function validate() {
+  const guru = document.getElementById('namaGuru').value;
+  if (!guru) { alert('Silakan pilih namamu terlebih dahulu.'); return false; }
+
+  const kelas = document.getElementById('kelas').value;
+  if (!kelas) { alert('Pilih kelas terlebih dahulu.'); document.getElementById('kelas').focus(); return false; }
+
+  const tema = document.getElementById('tema').value.trim();
+  if (!tema) { alert('Isi tema/judul proyek STEM.'); document.getElementById('tema').focus(); return false; }
+
+  const mapel = document.getElementById('mapel').value.trim();
+  if (!mapel) { alert('Isi mata pelajaran yang diintegrasikan.'); document.getElementById('mapel').focus(); return false; }
+
+  const profil = getProfilValues();
+  if (!profil) { alert('Pilih minimal satu dimensi Profil Pelajar Pancasila.'); return false; }
+
+  const stemFields = ['intS','intT','intE','intM'];
+  for (const id of stemFields) {
+    if (!document.getElementById(id).value.trim()) {
+      alert('Semua kolom integrasi S-T-E-M wajib diisi.');
+      document.getElementById(id).focus();
+      return false;
+    }
+  }
+
+  const pt1 = document.getElementById('pt1').value.trim();
+  const pt2 = document.getElementById('pt2').value.trim();
+  const pt3 = document.getElementById('pt3').value.trim();
+  if (!pt1 || !pt2 || !pt3) {
+    alert('Isi minimal 3 pertemuan dalam alur pembelajaran.');
+    document.getElementById('pt1').focus();
+    return false;
+  }
+
+  return true;
+}
+
+async function submitForm() {
+  if (!validate()) return;
+
+  if (!SCRIPT_URL) {
+    alert('⚠️ SCRIPT_URL belum diisi. Hubungi administrator untuk mengonfigurasi Google Apps Script.');
+    return;
+  }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation:spin 1s linear infinite"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Menyimpan...';
+
+  const timestamp = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
+  const payload = {
+    sheet: 'Pertanyaan 3',
+    values: [
+      timestamp,
+      document.getElementById('namaGuru').value,
+      document.getElementById('kelas').value,
+      document.getElementById('tema').value.trim(),
+      document.getElementById('mapel').value.trim(),
+      getProfilValues(),
+      document.getElementById('intS').value.trim(),
+      document.getElementById('intT').value.trim(),
+      document.getElementById('intE').value.trim(),
+      document.getElementById('intM').value.trim(),
+      document.getElementById('pt1').value.trim(),
+      document.getElementById('pt2').value.trim(),
+      document.getElementById('pt3').value.trim(),
+      document.getElementById('pt4').value.trim(),
+      document.getElementById('pt5').value.trim(),
+      document.getElementById('pt6').value.trim(),
+      document.getElementById('pt7').value.trim(),
+      document.getElementById('pt8').value.trim()
+    ]
+  };
+
+  try {
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: JSON.stringify(payload)
+    });
+    // Hide all sections, show success
+    ['sec1','sec2','sec3','sec4','submitWrap'].forEach(id => {
+      document.getElementById(id).style.display = 'none';
+    });
+    document.querySelector('.guru-select-wrap').style.display = 'none';
+    document.querySelector('.form-progress').style.display = 'none';
+    document.getElementById('successBox').classList.add('show');
+  } catch (err) {
+    document.getElementById('errorMsg').textContent = 'Gagal menyimpan: ' + err.message;
+    document.getElementById('errorBox').classList.add('show');
+    btn.disabled = false;
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg> Simpan Rancangan STEM';
+  }
+}
+
+function resetError() {
+  document.getElementById('errorBox').classList.remove('show');
+  document.getElementById('submitBtn').disabled = false;
+}
+</script>
+<style>@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}</style>
+</body>
+</html>
